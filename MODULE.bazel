@@ -7,11 +7,3 @@ bazel_dep(name = "apple_support", version = "2.3.0")
 bazel_dep(name = "bazel_features", version = "1.42.1")
 
 bazel_dep(name = "rules_cc", version = "0.2.17", dev_dependency = True)
-
-xcode = use_extension("//:defs.bzl", "xcode")
-xcode.download(
-    integrity = "sha256-86OmOU8D3StWK9DXj7/t8xvtI8SP9aiByt63K1VSoek=",
-    path = "/Applications/lol.app",
-    url = "file:///Users/ksmiley/Downloads/Xcode_26.3_Apple_silicon.xip",
-)
-use_repo(xcode, "xcode")
