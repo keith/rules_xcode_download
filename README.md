@@ -32,3 +32,8 @@ DEVELOPER_DIR=/Applications/Xcode-26.3.0.17C529 xcodebuild -runFirstLaunch
 
 Afterwards you can build as normal and bazel will use the tools from the
 downloaded version.
+
+Alternatively you can look at [`tools/bazel`](tools/bazel) for a
+potential hack around having to do multiple bazel invocations before
+things work. It's hard to enumerate all the possible install state of
+Xcode's developer tools, but that potentially solves 1 common case.
