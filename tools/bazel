@@ -7,8 +7,10 @@ if ! plutil -p /Library/Preferences/com.apple.dt.Xcode.plist | grep -q "$constan
   echo "NOTE: Auto-accepting Xcode license agreement, sudo will be required. Ctrl-c to not accept the license" >&2
   cat <<EOF | plutil -convert binary1 - -o - | sudo tee /Library/Preferences/com.apple.dt.Xcode.plist > /dev/null
 {
+  "IDELastBetaLicenseAgreedTo" => "$constant"
   "IDELastGMLicenseAgreedTo": "$constant",
   "IDELastPTRLicenseAgreedTo": "$constant",
+  "IDEXcodeVersionForAgreedToBetaLicense" => "$constant"
   "IDEXcodeVersionForAgreedToGMLicense": "$constant",
   "IDEXcodeVersionForAgreedToPTRLicense": "$constant"
 }
