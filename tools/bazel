@@ -2,19 +2,21 @@
 
 set -euo pipefail
 
-readonly constant=1000000000
-if ! plutil -p /Library/Preferences/com.apple.dt.Xcode.plist | grep -q "$constant"; then
+readonly constant=1000000001
+if ! plutil -p /Library/Preferences/com.apple.dt.Xcode.plist 2>&1 | grep -q "$constant"; then
   echo "NOTE: Auto-accepting Xcode license agreement, sudo will be required. Ctrl-c to not accept the license" >&2
-  cat <<EOF | plutil -convert binary1 - -o - | sudo tee /Library/Preferences/com.apple.dt.Xcode.plist > /dev/null
+  tmpfile=$(mktemp)
+  cat <<EOF | plutil -convert binary1 - -o - > "$tmpfile"
 {
-  "IDELastBetaLicenseAgreedTo" => "$constant"
+  "IDELastBetaLicenseAgreedTo": "$constant",
   "IDELastGMLicenseAgreedTo": "$constant",
   "IDELastPTRLicenseAgreedTo": "$constant",
-  "IDEXcodeVersionForAgreedToBetaLicense" => "$constant"
+  "IDEXcodeVersionForAgreedToBetaLicense": "$constant",
   "IDEXcodeVersionForAgreedToGMLicense": "$constant",
   "IDEXcodeVersionForAgreedToPTRLicense": "$constant"
 }
 EOF
+ sudo mv "$tmpfile" /Library/Preferences/com.apple.dt.Xcode.plist
 fi
 
 
